@@ -100,3 +100,73 @@ Add the following lines to the end (bottom) of the file:
 To save your changes, press `ctrl-o` then press the Enter key. Next, press `ctrl-x` to exit the `nano` application.
 
 Reboot the Raspberry Pi; when it restarts, the python server process should execute in its own terminal window automatically.
+
+
+or by Step 1: Create a Service File
+
+Open a terminal and create a new service file:
+
+sudo nano /etc/systemd/system/pi-relay.service
+
+add 
+
+[Unit]
+Description=Pi Relay Controller Service
+After=network.target
+
+[Service]
+ExecStart=/bin/bash /home/pi/pi-relay-controller-modmypi/start-server.sh
+WorkingDirectory=/home/pi/pi-relay-controller-modmypi
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+
+
+Save and close the file: Save the service file in nano by pressing CTRL + O and then CTRL + X to exit.
+
+Reload the systemd daemon: After creating or editing the service file, you need to reload the systemd daemon so it recognizes the new service:
+
+bash
+
+sudo systemctl daemon-reload
+
+Enable the service to run on boot: To make sure the service starts automatically on boot, enable it:
+
+bash
+
+sudo systemctl enable pi-relay.service
+
+Start the service: To start the service immediately, use:
+
+bash
+
+sudo systemctl start pi-relay.service
+
+Check the service status: You can check the status of your service to ensure it's running correctly:
+
+bash
+
+    sudo systemctl status pi-relay.service
+
+    This command will show you the current status and any error messages if something went wrong.
+
+Verifying the Service:
+
+After completing these steps:
+
+    Your start-server.sh script will automatically start in the background on boot.
+    You can manage the service with the following commands:
+        Start the service: sudo systemctl start pi-relay.service
+        Stop the service: sudo systemctl stop pi-relay.service
+        Restart the service: sudo systemctl restart pi-relay.service
+        Check service status: sudo systemctl status pi-relay.service
+
+This setup will ensure your script runs as a background service every time the Raspberry Pi starts.
+
+
+
+
