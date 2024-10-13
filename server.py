@@ -4,9 +4,7 @@ from __future__ import print_function
 
 import sys
 
-from flask import Flask
-from flask import make_response
-from flask import render_template
+from flask import Flask, make_response, render_template
 from flask_bootstrap import Bootstrap
 
 from relay_lib import *
@@ -14,30 +12,22 @@ from relay_lib import *
 error_msg = '{msg:"error"}'
 success_msg = '{msg:"success"}'
 
-# Update the following list/tuple with the port numbers assigned to your relay board
-PORTS = (3, 5, 7, 11, 12, 13, 15, 16)
-NUM_RELAY_PORTS = len(PORTS)
 
-# initialize the relay library with the system's port configuration
-if init_relay(PORTS):
-    # turn all of the relays off, so we're starting with a clean slate.
-    relay_all_on()
-else:
-    print("Port configuration error")
-    # exit the application
-    sys.exit(0)
 
 app = Flask(__name__)
 
 bootstrap = Bootstrap(app)
 
+NUM_RELAY_PORTS = 16
+PORTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]  # استخدام 16 منفذ
+
+init_relay(PORTS)
+
 
 @app.route('/')
 def index():
     print("Loading app Main page")
-    # return success_resp
     return render_template('index.html', n_channels=list(range(1, NUM_RELAY_PORTS+1)))
-
 
 @app.route('/status/<int:relay>')
 def api_get_status(relay):
@@ -60,26 +50,22 @@ def api_toggle_relay(relay):
 @app.route('/on/<int:relay>')
 def api_relay_on(relay):
     print("Executing api_relay_on:", relay)
-    if validate_relay(relay):
-        print("valid relay")
+    if 0 < relay <= NUM_RELAY_PORTS:
+
         relay_on(relay)
         return make_response(success_msg, 200)
     else:
-        print("invalid relay")
         return make_response(error_msg, 404)
-
 
 @app.route('/off/<int:relay>')
 def api_relay_off(relay):
     print("Executing api_relay_off:", relay)
-    if validate_relay(relay):
-        print("valid relay")
+    if 0 < relay <= NUM_RELAY_PORTS:
         relay_off(relay)
         return make_response(success_msg, 200)
     else:
         print("invalid relay")
         return make_response(error_msg, 404)
-
 
 @app.route('/all_on/')
 def api_relay_all_on():
