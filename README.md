@@ -45,8 +45,21 @@ This command will update the Raspbian OS with all updates released after the lat
 ## Software Installation & Configuration
 
 The controller's Flask application uses Flask and the Flask Bootstrap plugin to serve [Bootstrap](http://getbootstrap.com/) applications, so in the terminal window, install the plugin by executing the following command:  
-
+	
+ 	sudo apt install python3-full
 	sudo pip install flask flask_bootstrap
+ 	sudo apt-get install gpiod
+  	sudo apt install python3-venv
+   	python3 -m venv my_venv
+    	source my_venv/bin/activate
+     	pip install flask flask_bootstrap
+      	sudo apt install python3-pip
+        sudo rm /usr/lib/python3.*/EXTERNALLY-MANAGED
+	RUN python3 -m venv /opt/venv
+ 	sudo apt install python3-lzo
+  	sudo apt install liblzo2-dev
+   	sudo apt install -y gpiod libgpiod-dev python3-libgpiod
+    	sudo apt install python3-lgpio
 
 Finally, clone the controller application to your local system by executing the following commands:
 
