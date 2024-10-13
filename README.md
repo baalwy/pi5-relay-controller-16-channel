@@ -9,9 +9,9 @@ This project provides a library you can use in your Python applications plus a P
 
 ## About the Board
 
-The board looks something like the following (image from [amazon.com](https://www.amazon.com/gp/product/B01HCFJC0Y/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1)):
+The board looks something like the following (image from [amazon.com](https://www.amazon.com/MECCANIXITY-Relay-Module-Channel-Trigger/dp/B0B7XMGRSW)):
 
-![ELEGOO 8-channel switch](screenshots/figure-01.jpg)
+![ELEGOO 16-channel switch](screenshots/figure-01.png)
 
 
 ## Hardware Components
@@ -24,7 +24,7 @@ To use this project, you'll need at a minimum the following hardware components:
 
 ## Assembly
 
-Attach the VCC and GND pins of the board to the respective pins on the GPIO header of the raspberry pi.  The remaining 8 pins control the relays, and are attached to the GPIO pins on the raspberry pi.  Consult the pinout diagram of the version of the raspberry pi you're using for the correct numbering.  I'm using a raspberry pi Model 2 B.  The pinout diagram of this version is here [pinout](https://pinout.xyz/)
+Attach the VCC and GND pins of the board to the respective pins on the GPIO header of the raspberry pi.  The remaining 8 pins control the relays, and are attached to the GPIO pins on the raspberry pi.  Consult the pinout diagram of the version of the raspberry pi you're using for the correct numbering.  I'm using a raspberry pi Model 5.  The pinout diagram of this version is here [pinout](https://pinout.xyz/)
 
 ## Configuring Your Raspberry Pi
 
@@ -50,13 +50,13 @@ The controller's Flask application uses Flask and the Flask Bootstrap plugin to 
 
 Finally, clone the controller application to your local system by executing the following commands:
 
-	git clone https://github.com/gshau/pi-relay-controller-modmypi
-	cd pi-relay-controller-modmypi
+	git clone https://github.com/baalwy/pi5-relay-controller-16-channel
+	cd pi5-relay-controller-16-channel
 
 Since the relay's GPIO port assignments can be easily changed using the buttons on the board, before you can run the project, you must make one change to the project's server code. Open the project's `server.py` file using your editor of choice. Near the top of the file, you should see the following lines of code:
 
 	# Update the following list/tuple with the port numbers assigned to your relay board
-	PORTS = (3, 5, 7, 11, 12, 13, 15, 16)
+	PORTS = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
 
 This ports list refers to the GPIO port configuration for the board referenced in the pinout diagram. Change the values here based on your board's configuration. I don't know what the default configuration is.
 
@@ -64,7 +64,7 @@ This ports list refers to the GPIO port configuration for the board referenced i
 
 Open a terminal window and execute the following commands:
 
-	cd pi-relay-controller-modmypi
+	cd pi5-relay-controller-16-channel
 	ls
 
 You should see the project's files listed. The project includes a script file to automate launching the server process. To use this file, you'll first have to make the file executable. In the terminal window, execute the following command:
@@ -77,11 +77,12 @@ Once that's done, execute the script file using the following command:
 
 The server process will launch and update the terminal window as shown in the following figure:
 
-![Starting the server process](screenshots/figure-02.png)
+![Starting the server process](screenshots/figure-03.png)
 
 If you open the web browser on the Pi and point it to `http://localhost:5000` you should see the web application load as shown in the following figure:
 
-![Project's Web Application](screenshots/figure-03.png)
+![Project's Web Application](screenshots/figure-00.png)
+![Project's Web Application](screenshots/figure-02.png)
 
 Click any of the buttons to interact with the relay board.  Alternatively, turn on/off or toggle a channel with a GET request to
   * Channel 3 on: http://relay-host/on/3
@@ -94,7 +95,7 @@ To make the server process start every time your boot the Raspberry Pi, you'll n
 
 Add the following lines to the end (bottom) of the file:
 
-	@lxterminal -e /home/pi/pi-relay-controller-modmypi/start-server.sh
+	@lxterminal -e /home/pi/pi5-relay-controller-16-channel/start-server.sh
 
 To save your changes, press `ctrl-o` then press the Enter key. Next, press `ctrl-x` to exit the `nano` application.
 
