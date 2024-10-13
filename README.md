@@ -115,6 +115,9 @@ To save your changes, press `ctrl-o` then press the Enter key. Next, press `ctrl
 Reboot the Raspberry Pi; when it restarts, the python server process should execute in its own terminal window automatically.
 
 
+
+
+
 or by Step 1: Create a Service File
 
 Open a terminal and create a new service file:
