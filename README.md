@@ -2,7 +2,7 @@
 Raspberry Pi 5 Relay Controller 16-Channel
 # Raspberry Pi Relay Controller
 
-This project combines a simple 8-channel relay switch with a raspberry pi to make a network connected relay switch at a significant savings over commercial offerings.  
+This project combines a simple 16-channel relay switch with a raspberry pi model 5 to make a network connected relay switch at a significant savings over commercial offerings.  
 
 This project provides a library you can use in your Python applications plus a Python web application (written using [Flask](http://flask.pocoo.org/)) to interact with the board from a web browser.
 
